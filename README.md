@@ -1,5 +1,23 @@
 ## Cybersecurity basics
 
+## SQL Injections
+
+SQL injections are usually caused by poorly coded web applications or poorly secured back-end server.
+
+Injection occurs when an application misinterprets user input as actual code rather than a string, changing the code flow and executing it. An SQL injection occurs when user-input is inputted into the SQL query string without properly sanitizing or filtering the input. The previous example showed how user-input can be used within an SQL query, and it did not use any form of input sanitization.
+
+```php
+$searchInput =  $_POST['findUser'];
+$query = "select * from logins where username like '%$searchInput'";
+$result = $conn->query($query);
+```
+
+Example of a malicious command : `1'; DROP TABLE users;`,
+
+Notice how we added a single quote (') after "1", in order to escape the bounds of the user-input in ('%$searchInput').
+
+So, the final SQL query executed would be as follows:
+
 ## Wi-Fi security
 
 Wi-Fi network security has evolved considerably over the years:
