@@ -6,6 +6,8 @@ SQL injections are usually caused by poorly coded web applications or poorly sec
 
 Injection occurs when an application misinterprets user input as actual code rather than a string, changing the code flow and executing it. An SQL injection occurs when user-input is inputted into the SQL query string without properly sanitizing or filtering the input. The previous example showed how user-input can be used within an SQL query, and it did not use any form of input sanitization.
 
+Now, the thing with SQL injection is that if a condition evalutes to true, no matter how we get this condition to be true, it's likely data be returned. The goal no longer is to guess the right password / username, but to subvert conditionnal logic in order to get our query appear "true", therefore validated.
+
 ```php
 $searchInput =  $_POST['findUser'];
 $query = "select * from logins where username like '%$searchInput'";
@@ -17,6 +19,12 @@ Example of a malicious command : `1'; DROP TABLE users;`,
 Notice how we added a single quote (') after "1", in order to escape the bounds of the user-input in ('%$searchInput').
 
 So, the final SQL query executed would be as follows:
+
+```sql
+select * from logins where username like '%1'; DROP TABLE users;'
+```
+
+Once the query is run, the users table will be deleted.
 
 ## Wi-Fi security
 
